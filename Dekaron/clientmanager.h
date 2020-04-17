@@ -28,6 +28,7 @@ public:
 	int findClientIndex(int clientNum);
 	void printClients();
 	void callClientsMethod(void(gameclient::* funcPtr)());
+	void callClientsMethodAsync(void(gameclient::* funcPtr)());
 	// Process Functions
 	bool getProcessState();
 	void mainProcess();

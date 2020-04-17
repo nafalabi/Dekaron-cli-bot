@@ -114,6 +114,15 @@ void clientmanager::callClientsMethod(void(gameclient::*funcPtr)())
 	}
 }
 
+void clientmanager::callClientsMethodAsync(void(gameclient::* funcPtr)())
+{
+	void (gameclient:: * function)();
+	function = funcPtr;
+	for (int i = 0; i < clientTotal; i++)
+	{
+		auto dump = std::async(function, clients[i]);
+	}
+}
 
 //=================================================
 //			   Process functions
@@ -132,10 +141,13 @@ void clientmanager::mainProcess()
 		callClientsMethod(&gameclient::healthAutoPot);
 
 		if (autoAttackIsActive) {
-			auto attack = std::async(&clientmanager::callClientsMethod, this, &gameclient::doAutoAttack);
+			callClientsMethodAsync(&gameclient::doAutoAttack);
+			Sleep(1);
+		}
+		else {
+			Sleep(100);
 		}
 
-		Sleep(1);
 	}
 }
 
