@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="mem">
+      <UniqueIdentifier>{c8b65e03-aea1-4dd8-869f-4e42a105d148}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Client">
+      <UniqueIdentifier>{e181173a-4f5c-4a9f-aeca-7dca67d09256}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{1c10d893-e4e4-4739-b516-233326128b61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\processlist">
+      <UniqueIdentifier>{3e05e4c5-763c-4369-b987-92a7294b1f08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\pch">
+      <UniqueIdentifier>{6e013e53-9fe7-439a-9280-944cf0c3b5fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Client\gameclient">
+      <UniqueIdentifier>{588da1e8-3e9c-4ea2-8376-9e4bdc22ea71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\processhelper">
+      <UniqueIdentifier>{86a41d92-2a28-4299-82ba-614626dc7866}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Client\clientmanager">
+      <UniqueIdentifier>{80bf27fd-1c1c-4cfc-82e9-91ea88f41baa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Client\gameclient\settings">
+      <UniqueIdentifier>{9d21c125-9a50-4bb3-8d16-88db46e8dab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\console">
+      <UniqueIdentifier>{5e93b240-4b1c-4f91-8113-d5aabcbd13f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\input">
+      <UniqueIdentifier>{7b0bddeb-8b5c-4fbb-8405-650dfa3f4750}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Dekaron.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mem.cpp">
+      <Filter>mem</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Header Files\pch</Filter>
+    </ClCompile>
+    <ClCompile Include="processlist.cpp">
+      <Filter>utils\processlist</Filter>
+    </ClCompile>
+    <ClCompile Include="gameclient.cpp">
+      <Filter>Game Client\gameclient</Filter>
+    </ClCompile>
+    <ClCompile Include="processhelper.cpp">
+      <Filter>utils\processhelper</Filter>
+    </ClCompile>
+    <ClCompile Include="clientmanager.cpp">
+      <Filter>Game Client\clientmanager</Filter>
+    </ClCompile>
+    <ClCompile Include="settings.cpp">
+      <Filter>Game Client\gameclient\settings</Filter>
+    </ClCompile>
+    <ClCompile Include="console.cpp">
+      <Filter>utils\console</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>utils\input</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="mem.h">
+      <Filter>mem</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files\pch</Filter>
+    </ClInclude>
+    <ClInclude Include="processlist.h">
+      <Filter>utils\processlist</Filter>
+    </ClInclude>
+    <ClInclude Include="gameclient.h">
+      <Filter>Game Client\gameclient</Filter>
+    </ClInclude>
+    <ClInclude Include="processhelper.h">
+      <Filter>utils\processhelper</Filter>
+    </ClInclude>
+    <ClInclude Include="clientmanager.h">
+      <Filter>Game Client\clientmanager</Filter>
+    </ClInclude>
+    <ClInclude Include="settings.h">
+      <Filter>Game Client\gameclient\settings</Filter>
+    </ClInclude>
+    <ClInclude Include="console.h">
+      <Filter>utils\console</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>utils\input</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
