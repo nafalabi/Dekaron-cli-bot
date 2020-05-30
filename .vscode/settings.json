@@ -1,3 +1,7 @@
 {
     "terminal.integrated.shell.windows": "cmd.exe",
+    "files.exclude": {
+        "*/*.obj": true,
+        "*/*.pdb": true
+    }
 }
