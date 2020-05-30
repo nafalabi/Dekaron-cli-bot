@@ -1,6 +1,6 @@
 #include "processhelper.h"
 
-uintptr_t GetModuleBaseAddress(DWORD procId, const wchar_t* modName) {
+uintptr_t GetModuleBaseAddress(DWORD procId, const WCHAR* modName) {
 	uintptr_t modBaseAddr = 0;
 	HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, procId);
 	if (hSnap != INVALID_HANDLE_VALUE)
@@ -11,7 +11,7 @@ uintptr_t GetModuleBaseAddress(DWORD procId, const wchar_t* modName) {
 		{
 			do
 			{
-				if (!_wcsicmp(modEntry.szModule, modName))
+				if (!_wcsicmp((wchar_t *)modEntry.szModule, (wchar_t *)modName))
 				{
 					modBaseAddr = (uintptr_t)modEntry.modBaseAddr;
 					break;

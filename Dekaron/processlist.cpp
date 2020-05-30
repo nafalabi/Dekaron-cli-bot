@@ -38,7 +38,7 @@ void processlist::hydrateList()
 				DWORD cbNeeded;
 
 				if (EnumProcessModules(hProcess, &hMod, sizeof(hMod), &cbNeeded)) {
-					GetModuleBaseName(hProcess, hMod, procName, sizeof(procName) / sizeof(WCHAR));
+					GetModuleBaseNameW(hProcess, hMod, procName, sizeof(procName) / sizeof(WCHAR));
 				}
 			}
 

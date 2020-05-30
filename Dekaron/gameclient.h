@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "processhelper.h"
 #include "settings.h"
+#include <WinUser.h>
 
 class gameclient
 {

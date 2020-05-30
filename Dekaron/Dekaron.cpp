@@ -7,8 +7,8 @@
 
 int main()
 {	
-	processlist* procList = new processlist;
-	clientmanager* clientManager = new clientmanager;
+	processlist* procList = new processlist();
+	clientmanager* clientManager = new clientmanager();
 
 	std::thread processThread(&clientmanager::mainProcess, clientManager);
 
