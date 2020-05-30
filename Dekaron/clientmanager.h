@@ -34,7 +34,6 @@ public:
 	void mainProcess();
 	void stopProcess();
 	// Action Functions
-	void setLeaderByPID(int PID);
 	void toggleAutoFollow();
 	void toggleAutoAttack();
 	void set(std::string name, int clienNum);

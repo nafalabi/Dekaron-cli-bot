@@ -1,7 +1,8 @@
 #include "clientmanager.h"
 
 // Constructor
-clientmanager::clientmanager() {
+clientmanager::clientmanager()
+{
 	clientTotal = 0;
 }
 
@@ -11,8 +12,10 @@ clientmanager::clientmanager() {
 
 bool clientmanager::checkClientExist(DWORD PID)
 {
-	for (int i = 0; i < clientTotal; i++) {
-		if (clients[i].getPID() == PID) {
+	for (int i = 0; i < clientTotal; i++)
+	{
+		if (clients[i].getPID() == PID)
+		{
 			return true;
 		}
 	}
@@ -22,17 +25,19 @@ bool clientmanager::checkClientExist(DWORD PID)
 void clientmanager::addClient(DWORD PID)
 {
 	std::stringstream ss;
-	
-	if (checkClientExist(PID)) {
+
+	if (checkClientExist(PID))
+	{
 		ss << "PID " << PID << " is already added.\n";
 		console::print(ss.str());
 		return;
 	}
 
 	// Initiate a client
-	clients[clientTotal] = gameclient(PID);	
+	clients[clientTotal] = gameclient(PID);
 	// if the client is invalid return
-	if (!clients[clientTotal].isClientValid()) {
+	if (!clients[clientTotal].isClientValid())
+	{
 		ss << "The client for PID " << PID << " is invalid, make sure you have logged in to your character.\n";
 		console::print(ss.str());
 		return;
@@ -43,7 +48,7 @@ void clientmanager::addClient(DWORD PID)
 	console::print(ss.str());
 }
 
-void clientmanager::addClients(std::vector<int> * PIDs)
+void clientmanager::addClients(std::vector<int> *PIDs)
 {
 	for (int i = 0; i < PIDs->size(); i++)
 	{
@@ -55,13 +60,15 @@ void clientmanager::removeClient(int clientNum)
 {
 	int index = findClientIndex(clientNum);
 	int clientListSize = sizeof(clients) / sizeof(gameclient);
-	if (index == -1) return;
-	if (index >= clientListSize) return;
+	if (index == -1)
+		return;
+	if (index >= clientListSize)
+		return;
 	int PID = clients[index].getPID();
-	
+
 	// Delete the client from the list
 	for (int i = index; i < clientListSize - 1; i++)
-		clients[i] = clients[i+1];
+		clients[i] = clients[i + 1];
 	// shrink the total number of clients
 	clientTotal -= 1;
 
@@ -70,7 +77,8 @@ void clientmanager::removeClient(int clientNum)
 	console::print(ss.str());
 }
 
-void clientmanager::removeClients() {
+void clientmanager::removeClients()
+{
 	clientTotal = 0;
 
 	std::stringstream ss;
@@ -82,10 +90,12 @@ int clientmanager::findClientIndex(int clientNum)
 {
 	for (int i = 0; i < clientTotal; i++)
 	{
-		if (clients[i].getPID() == clientNum) return i;
+		if (clients[i].getPID() == clientNum)
+			return i;
 	}
-	
-	if (clientNum <= 0 || clientNum > clientTotal) return -1;
+
+	if (clientNum <= 0 || clientNum > clientTotal)
+		return -1;
 
 	return clientNum - 1;
 }
@@ -94,9 +104,10 @@ void clientmanager::printClients()
 {
 	std::stringstream message;
 
-	for (int i = 0; i < clientTotal; i++){
+	for (int i = 0; i < clientTotal; i++)
+	{
 		clients[i].hydrateValues();
-		message << "\t" << (i + 1) << ". " << (i == clientLeaderIndex? "*" : "");
+		message << "\t" << (i + 1) << ". " << (i == clientLeaderIndex ? "*" : "");
 		message << clients[i].charName;
 		message << " PID " << clients[i].getPID() << "\n";
 	}
@@ -104,9 +115,9 @@ void clientmanager::printClients()
 	console::print(message.str());
 }
 
-void clientmanager::callClientsMethod(void(gameclient::*funcPtr)())
+void clientmanager::callClientsMethod(void (gameclient::*funcPtr)())
 {
-	void (gameclient:: * function)();
+	void (gameclient::*function)();
 	function = funcPtr;
 	for (int i = 0; i < clientTotal; i++)
 	{
@@ -114,14 +125,19 @@ void clientmanager::callClientsMethod(void(gameclient::*funcPtr)())
 	}
 }
 
-void clientmanager::callClientsMethodAsync(void(gameclient::* funcPtr)())
+void clientmanager::callClientsMethodAsync(void (gameclient::*funcPtr)())
 {
-	void (gameclient:: * function)();
-	function = funcPtr;
+	void (gameclient::*func)();
+	func = funcPtr;
+
 	for (int i = 0; i < clientTotal; i++)
 	{
-		auto dump = std::async(function, clients[i]);
+		// auto dump = std::async(function, clients[i]);
+		std::thread attack(func, clients[i]);
+		attack.detach();
+		Sleep(1);
 	}
+	Sleep(clients[0].settings.skillKeys.size() * 10);
 }
 
 //=================================================
@@ -140,14 +156,11 @@ void clientmanager::mainProcess()
 		callClientsMethod(&gameclient::manaAutoPot);
 		callClientsMethod(&gameclient::healthAutoPot);
 
-		if (autoAttackIsActive) {
+		if (autoAttackIsActive)
+		{
 			callClientsMethodAsync(&gameclient::doAutoAttack);
-			Sleep(1);
 		}
-		else {
-			Sleep(100);
-		}
-
+		Sleep(1);
 	}
 }
 
@@ -159,23 +172,6 @@ void clientmanager::stopProcess()
 //=================================================
 //				Action functions
 //=================================================
-void clientmanager::setLeaderByPID(int PID)
-{
-	for (int i = 0; i < clientTotal; i++)
-	{
-		if (clients[i].getPID() == PID) {
-			clientLeaderIndex = i;
-
-			std::stringstream message;
-			message << "Leader Has been set to ";
-			message << clients[clientLeaderIndex].charName;
-			// Print to console
-			console::print(message.str());
-
-			return void();
-		}
-	}
-}
 
 void clientmanager::toggleAutoFollow()
 {
@@ -187,7 +183,8 @@ void clientmanager::toggleAutoFollow()
 
 	for (int i = 0; i < clientTotal; i++)
 	{
-		if (i != clientLeaderIndex) {
+		if (i != clientLeaderIndex)
+		{
 			clients[i].doFollowUser(leaderId);
 		}
 	}
@@ -213,49 +210,62 @@ void clientmanager::toggleAutoAttack()
 void clientmanager::set(std::string name, int clienNum)
 {
 	int index = findClientIndex(clienNum);
-	if (index == -1) return;
+	if (index == -1)
+		return;
 
-	if (name == "autoHP") {
+	if (name == "leader")
+	{
+		clientLeaderIndex = index;
+		std::stringstream message;
+		message << "Leader Has been set to ";
+		message << clients[clientLeaderIndex].charName;
+		// Print to console
+		console::print(message.str());
+	}
+	else if (name == "autoHP")
+	{
 		console::question("input 1 to enable it and 0 to disable it, [1/0]");
 		bool value;
 		std::cin >> value;
 		clients[index].settings.autoPotHpEnabled = value;
 	}
-	else if (name == "autoMP") {
+	else if (name == "autoMP")
+	{
 		console::question("input 1 to enable it and 0 to disable it, [1/0]");
 		bool value;
 		std::cin >> value;
 		clients[index].settings.autoPotMpEnabled = value;
 	}
-	else if (name == "autoAttack") {
+	else if (name == "autoAttack")
+	{
 		console::question("input 1 to enable it and 0 to disable it, [1/0]");
 		bool value;
 		std::cin >> value;
 		clients[index].settings.autoAttackEnabled = value;
 	}
-	else if (name == "HPPercentge") {
-
+	else if (name == "HPPercentge")
+	{
 	}
-	else if (name == "MPPercentage") {
-
+	else if (name == "MPPercentage")
+	{
 	}
-	else if (name == "potHPKey") {
-
+	else if (name == "potHPKey")
+	{
 	}
-	else if (name == "potMPKey") {
-
+	else if (name == "potMPKey")
+	{
 	}
-	else if (name == "skillKeys") {
-
+	else if (name == "skillKeys")
+	{
 	}
-	else if (name == "followKey") {
-
+	else if (name == "followKey")
+	{
 	}
-	else if (name == "selfTargetKey") {
-
+	else if (name == "selfTargetKey")
+	{
 	}
-	else if (name == "nextTargetKey") {
-
+	else if (name == "nextTargetKey")
+	{
 	}
 }
 
@@ -263,7 +273,7 @@ void clientmanager::showAllClientDetails()
 {
 	for (int i = 0; i < clientTotal; i++)
 	{
-		showClientDetails(i+1);
+		showClientDetails(i + 1);
 		console::print("---------------------------------------\n");
 	}
 }
@@ -271,14 +281,16 @@ void clientmanager::showAllClientDetails()
 void clientmanager::showClientDetails(int clientNum)
 {
 	int index = findClientIndex(clientNum);
-	gameclient* cl = &clients[index];
+	gameclient *cl = &clients[index];
 	std::stringstream ss;
 	ss << "Name               : " << cl->charName << "\n";
 	ss << "autoHP             : " << (cl->settings.autoPotHpEnabled ? "enabled" : "disabled") << "\n";
 	ss << "autoMP             : " << (cl->settings.autoPotMpEnabled ? "enabled" : "disabled") << "\n";
 	ss << "autoAttack         : " << (cl->settings.autoAttackEnabled ? "enabled" : "disabled") << "\n";
-	ss << "auto HP percentage : " << cl->settings.toleratedHpPercentage << "%" << "\n";
-	ss << "auto HP percentage : " << cl->settings.toleratedMpPercentage << "%" << "\n";
+	ss << "auto HP percentage : " << cl->settings.toleratedHpPercentage << "%"
+	   << "\n";
+	ss << "auto HP percentage : " << cl->settings.toleratedMpPercentage << "%"
+	   << "\n";
 	console::print(ss.str());
 }
 

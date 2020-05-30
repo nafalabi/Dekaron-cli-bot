@@ -13,7 +13,7 @@ gameclient::gameclient(DWORD PID)
 	processId = PID;
 	hProcess = OpenProcess(PROCESS_ALL_ACCESS, NULL, PID);
 	hwnd = FindWindowFromProcessId(processId);
-	baseAddr = GetModuleBaseAddress(PID, L"zdkrc.exe");
+	baseAddr = GetModuleBaseAddress(PID, "zdkrc.exe");
 	hydrateValues();
 	// Check if it's valid process, if it's not then return
 	if (maxHealth == 0) return;

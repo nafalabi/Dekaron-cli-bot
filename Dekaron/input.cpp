@@ -79,11 +79,6 @@ void input::consoleInputThread()
 		else if (firstInput == "test") {
 			clientManager->testFunction();
 		}
-		else if (firstInput == "setleader") {
-			int PID;
-			ss >> PID;
-			clientManager->setLeaderByPID(PID);
-		}
 		else if (firstInput == "set") {
 			std::string setName;
 			int clientNum; // could be PID or index client
@@ -117,14 +112,14 @@ void input::keystrokesThread()
 		// Auto Follow Toggler
 		if (isKeyPressed(clientManager->settings.autoFollowKey)) {
 			clientManager->toggleAutoFollow();
-			Sleep(200);
+			Sleep(50);
 		}
 		// Auto Attack Toggler
 		else if (isKeyPressed(clientManager->settings.autoAttackKey)) {
 			clientManager->toggleAutoAttack();
-			Sleep(200);
+			Sleep(50);
 		}
-		Sleep(100);
+		Sleep(50);
 	}
 }
 

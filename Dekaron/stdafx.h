@@ -9,4 +9,3 @@
 #include <sstream>
 #include <TlHelp32.h>
 #include <thread>
-#include <future>
